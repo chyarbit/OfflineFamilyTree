@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Member</title>
+    <!-- JQuery Link -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js" crossorigin="anonymous"></script>
+    <!-- AJAX Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <!-- Link to local javascript -->
+    <script src="/js/viewMember.js"></script>
+    <!-- Bootstrap JS Link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Google Fonts Links -->
+    <link href="https://fonts.googleapis.com/css?family=Spectral:800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- Bootstrap Date-Picker Plugin and Stylesheet -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="display-4">Family Tree</h1>
+        <a class="btn btn-lg btn-secondary" href="/" role="button" id="viewFamilyButton">View your family!</a>
+        <hr class="my-4">
+    </div>
+    <!-- Container that holds member information -->
+    <div class="container member-div">
+        <p class="lead col-6">View information about an individual family member here. Click the buttons below to either add a
+            child or add/update this member's partner!</p>
+        <!-- Section to hold member information -->
+        <div class = "container member-info">
+        <h1 id="member-name"> </h1>
+        <ul id = "member-data"></ul>
+        </div>
+    <!-- Row with buttons that pop out modal input forms -->
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="text-center">
+                    <!-- Button to add child -->
+                    <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#childModal">Add
+                        Child</button>
+                    <!-- Add a Child Modal -->
+                    <div id="childModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="float-left modal-title">Add a Child</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Form inside modal to add child -->
+                                <form class="form-horizontal add-child-form" action="/action_page.php">
+                                    <!-- Input for new child's full name -->
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3" for="child-name">Full Name</label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" id="child-name">
+                                        </div>
+                                    </div>
+                                    <!-- Radio buttons to select new child's gender -->
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="row">
+                                                <label class="control-label mx-2" for="gender">Gender </label>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" class="custom-control-input" id="gender-female"
+                                                        name="gender" value = "female">
+                                                    <label class="custom-control-label"
+                                                        for="gender-female">Female</label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" class="custom-control-input" id="gender-male"
+                                                        name="gender" value = "male">
+                                                    <label class="custom-control-label" for="gender-male">Male</label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" class="custom-control-input" id="gender-other"
+                                                        name="gender" value = "other">
+                                                    <label class="custom-control-label" for="gender-other">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Input to enter new child's date of birth -->
+                                    <div class="form-group row justify-content-center">
+                                        <div class="bootstrap-iso">
+                                            <div class="container-fluid">
+                                                <div class="form-group">
+                                                    <!-- Date input -->
+                                                    <label class="control-label" for="date">Date of Birth</label>
+                                                    <input class="form-control" id="child-dob" name="date"
+                                                        placeholder="MM/DD/YYY" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- Button to submit form and add new child -->
+                                <div class="modal-footer">
+                                    <button type="button" id="child-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add/ Update partner -->
+            <div class="col d-flex justify-content-center">
+                <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal"
+                    data-target="#partnerModal">Add/Update
+                    Partner</button>
+                <!-- Modal for adding/updating partner -->
+                <div id="partnerModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Button to pop out modal -->
+                                <h4 class="float-left modal-title">Add/Update Partner</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Form to enter partner's name -->
+                            <div class="modal-body">
+                                <form class="form-horizontal add-partner-form" action="/action_page.php">
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3" for="partner-name">Partner's Name </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" id="partner-name">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Button to submit add/update partner form -->
+                            <div class="modal-footer">
+                                <div class="modal-footer">
+                                    <button type="button" id="partner-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

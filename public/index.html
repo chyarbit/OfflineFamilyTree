@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Tree</title>
+     <!-- JQuery Link -->
+     <script src="https://code.jquery.com/jquery-3.5.0.js" crossorigin="anonymous"></script>
+     <!-- AJAX Link-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap Link -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <!-- JS Script -->
+    <script src= "/js/index.js"></script>
+    <!-- Bootstrap CSS Link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Google Fonts Link -->
+    <link href="https://fonts.googleapis.com/css?family=Spectral:800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
+    <!-- Personal Style Sheet-->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <!-- GoJS links -->
+    <script src="https://unpkg.com/gojs/release/go-debug.js"></script>
+    <script src="https://gojs.net/latest/extensions/HyperlinkText.js"></script>
+    <!-- DatePicker style sheet -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+</head>
+
+<body>
+    <!-- Jumbotron settings-->
+    <div class="jumbotron">
+        <h1 class="display-4">Family Tree</h1>
+        <p class="lead">
+            <button class="btn btn-lg btn-secondary" role="button" id="startButton">Start New Tree</button>
+        </p>
+    </div>
+
+    <!-- Start Family form settings-->
+    <div class= "container-fluid" id="startForm">
+        <div class = "row">
+        <form class= "col-sm-9 offset-sm-3" id="addInfo">
+          <p>Please enter the head of the new family. You will not be able to add parents to this individual.</p>
+
+          <!-- Name information for form-->
+          <div class="form-group row ">
+            <label for="inputEmail3" class="col-sm-4 col-form-label">Full Name</label>
+            <div class="col-sm-9">
+              <input type="full-name" class="form-control" id="full-name" placeholder="Example- Queen Elizabeth">
+            </div>
+          </div>
+      
+          <!-- Spouse/Partner information for form--> 
+          <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-6 col-form-label">Spouse/Partner</label>
+            <div class="col-sm-9">
+              <input type="partner" class="form-control" id="partner" placeholder="Example- Prince Philip">
+            </div>
+          </div>    
+          
+          <!-- DOB information for form-->
+          <div class="form-group row"> 
+            <label class="control-label col-sm-6 col" for="date">Date of Birth</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="dob" name="date" placeholder="MM/DD/YYY" type="text"/>
+            </div>
+          </div>
+      
+          <!-- Gender information for form-->
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-3 pt-0">Gender</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="male" value="male" checked>
+                  <label class="form-check-label" for="gridRadios1">
+                    Male
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="female" value="female">
+                  <label class="form-check-label" for="gridRadios2">
+                    Female
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          
+          <!-- Start new family form submit button-->
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-lg btn-secondary" id="addButton">Create new Family Tree</button>
+            </div>
+          </div>
+      
+        </form>
+      </div>
+    </div>
+
+  <!-- Tree instructions --> 
+  <div class="container-fluid" id="tree-instructions">
+    <div class="text-center"><h1><strong>See your family tree below!</strong></h1></div>
+    <div class="row">
+      <div class="col-sm-3 offset-sm-1">
+        <h4><strong>How to decipher the tree</strong></h4>
+          <li>Male members are blue</li>
+          <li>Female members are pink</li>
+          <li>Relationships between members are designated by the lines</li>
+        </p>
+      </div>
+      <div class="col-sm-3 offset-sm-1">
+        <h4><strong>How to rearrange your family tree</strong></h4>
+        <li>Click on an individual household member</li>
+        <li>Move them to where you want them on the page</li>
+        <li>Repeat with other members until you have an arrangement you like</li>
+      </div>
+      <div class="col-sm-3 offset-sm-1">
+        <h4><strong>To view individual household member</strong></h4>
+          <p>Click on an individual household member to be redirected to that individual's page
+          <li>View information such as the individual's date of birth, children, etc.</li>
+          <li>Add new information or update existing information</li>
+        </p>
+    </div>
+  </div>
+  
+  <!-- Container for the tree diagram --> 
+  <div class="container" id="familyTreeContainer">
+    <div id = "familyInfo">
+    </div>
+  </div>
+
+</body>
+
+</html>
