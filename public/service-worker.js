@@ -51,7 +51,7 @@ const FILES_TO_CACHE = [
     // if it is already in the cache, it will not go to the server as it will get it from the cache
     // if it is not in the cache, it will go to the server to get the information needed for the request
   // the fetch can also be automated to store new information in the cache that is retrieved from the server for a future request
-  self.addEventListener("fetch", function(evt) {
+  self.addEventListener("fetch", function(event) {
     event.respondWith(async function() {
         // Try to get the response from a cache.
         const cache = await caches.open(CACHE_NAME);

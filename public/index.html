@@ -140,6 +140,15 @@
     </div>
   </div>
 
+  <!-- need script tag to import in server-worker js file-->
+  <script> 
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("/service-worker.js")
+    .then(reg => console.log("Registering Service Worker", reg))
+    .catch(err => console.log("Service Worked Failed to Register", err))
+  }
+  </script>
+
 </body>
 
 </html>
