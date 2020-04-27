@@ -9,7 +9,6 @@ const FILES_TO_CACHE = [
   ];
   
   const CACHE_NAME = "static-cache-v2";
-  const DATA_CACHE_NAME = "data-cache-v1";
   
   // install
   // self acts like this- refers to the service worker itself
@@ -34,7 +33,7 @@ const FILES_TO_CACHE = [
       caches.keys().then(keyList => {
         return Promise.all(
           keyList.map(key => {
-            if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
+            if (key !== CACHE_NAME) {
               console.log("Removing old cache data", key);
               return caches.delete(key);
             }
@@ -50,35 +49,21 @@ const FILES_TO_CACHE = [
   // fetch is always running - it intercepts the request from the client to the server
   // any request from the client to the server will be checked in the cache first to see if it is already available
     // if it is already in the cache, it will not go to the server as it will get it from the cache
+    // if it is not in the cache, it will go to the server to get the information needed for the request
+  // the fetch can also be automated to store new information in the cache that is retrieved from the server for a future request
   self.addEventListener("fetch", function(evt) {
-    // if (evt.request.url.includes("/api/")) {
-    //   evt.respondWith(
-    //     caches.open(DATA_CACHE_NAME).then(cache => {
-    //       return fetch(evt.request)
-    //         .then(response => {
-    //           // If the response was good, clone it and store it in the cache.
-    //           if (response.status === 200) {
-    //             cache.put(evt.request.url, response.clone());
-    //           }
-  
-    //           return response;
-    //         })
-    //         .catch(err => {
-    //           // Network request failed, try to get it from the cache.
-    //           return cache.match(evt.request);
-    //         });
-    //     }).catch(err => console.log(err))
-    //   );
-  
-    //   return;
-    // }
-  
-    // evt.respondWith(
-    //   caches.open(CACHE_NAME).then(cache => {
-    //     return cache.match(evt.request).then(response => {
-    //       return response || fetch(evt.request);
-    //     });
-    //   })
-    // );
+    event.respondWith(async function() {
+        // Try to get the response from a cache.
+        const cache = await caches.open(CACHE_NAME);
+        // event.request = see what request is and if it is in the cache
+        const cachedResponse = await cache.match(event.request);
+        if (cachedResponse) {
+          // If we found a match in the cache, return it, but also update the entry in the cache in the background.
+          event.waitUntil(cache.add(event.request));
+          return cachedResponse;
+        }
+        // If we didn't find a match in the cache, use the network
+        return fetch(event.request);
+      }());
   });
   
