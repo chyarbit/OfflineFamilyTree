@@ -1,0 +1,15 @@
+{
+    "name": "Family Tree App",
+    "icons":[ 
+      {
+        "src": "public/images/icons/icon-144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "start_url": "/",
+    "display": "standalone"
+  }
+  
