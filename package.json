@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/chyarbit/FamilyTree#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "gojs": "^2.1.14",
     "mysql2": "^2.1.0",
     "path": "^0.12.7",
